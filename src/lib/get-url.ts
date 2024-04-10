@@ -46,7 +46,7 @@ const dzAuthenticate = async (): Promise<userData> => {
 };
 
 const getTrackUrlFromServer = async (track_token: string, format: string): Promise<string | null> => {
-  const user = user_data ? user_data : await dzAuthenticate();
+  const user = user_data || (await dzAuthenticate());
   if ((format === 'FLAC' && !user.can_stream_lossless) || (format === 'MP3_320' && !user.can_stream_hq)) {
     throw new WrongLicense(format);
   }
