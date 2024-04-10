@@ -75,7 +75,7 @@ class Metaflac {
     while (!isLastBlock) {
       blockType = this.buffer.readUInt8(offset++);
       isLastBlock = blockType >= 128;
-      blockType = blockType % 128;
+      blockType %= 128;
 
       const blockLength = this.buffer.readUIntBE(offset, 3);
       offset += 3;
