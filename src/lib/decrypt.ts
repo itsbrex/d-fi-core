@@ -11,7 +11,9 @@ export const getSongFileName = ({MD5_ORIGIN, SNG_ID, MEDIA_VERSION}: trackType, 
   const step1 = [MD5_ORIGIN, quality, SNG_ID, MEDIA_VERSION].join('¤');
 
   let step2 = md5(step1) + '¤' + step1 + '¤';
-  while (step2.length % 16 > 0) step2 += ' ';
+  while (step2.length % 16 > 0) {
+    step2 += ' ';
+  }
 
   return crypto.createCipheriv('aes-128-ecb', 'jo6aey6haid2Teih', '').update(step2, 'ascii', 'hex');
 };
@@ -55,8 +57,11 @@ export const decryptDownload = (source: Buffer, trackId: string) => {
     let chunkString;
     chunk.fill(0);
     source.copy(chunk, 0, position, position + chunk_size);
-    if (i % 3 > 0 || chunk_size < 2048) chunkString = chunk.toString('binary');
-    else chunkString = decryptChunk(chunk, blowFishKey);
+    if (i % 3 > 0 || chunk_size < 2048) {
+      chunkString = chunk.toString('binary');
+    } else {
+      chunkString = decryptChunk(chunk, blowFishKey);
+    }
 
     destBuffer.write(chunkString, position, chunkString.length, 'binary');
     position += chunk_size;
