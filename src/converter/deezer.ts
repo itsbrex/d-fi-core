@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import delay from 'delay';
 import {getAlbumInfo, getAlbumTracks, getTrackInfo} from '../api';
 import type {albumType, trackType} from '../types';
@@ -36,12 +36,11 @@ export const upc2deezer = async (name: string, upc?: string): Promise<[albumType
 };
 
 // Retry on rate limit error
-instance.interceptors.response.use(async (response: Record<string, any>) => {
-  if (response.data.error && Object.keys(response.data.error).length > 0) {
-    if (response.data.error.code === 4) {
-      await delay.range(1000, 1500);
-      return await instance(response.config);
-    }
+instance.interceptors.response.use(async (response: AxiosResponse<any>) => {
+  if (response.data && response.data.error && response.data.error.code === 4) {
+    const delayTime = 1000 + Math.random() * 500; // generates a random delay between 1000 and 1500 milliseconds
+    await delay(delayTime);
+    return await instance(response.config);
   }
 
   return response;
