@@ -1,10 +1,11 @@
 export * from './album';
 export * from './artist';
-export * from './show';
+export * from './channel';
 export * from './playlist';
 export * from './playlist-channel';
-export * from './channel';
 export * from './profile';
 export * from './search';
+export * from './show';
 export * from './tracks';
 export * from './user';
+// export * from './local';
