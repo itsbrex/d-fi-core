@@ -1,3 +1,6 @@
+import axios from 'axios';
+import PQueue from 'p-queue';
+import * as spotifyUri from 'spotify-uri';
 import {
   getAlbumInfo,
   getAlbumTracks,
@@ -7,15 +10,12 @@ import {
   getPlaylistTracks,
   getTrackInfo,
 } from '../';
-import spotifyUri from 'spotify-uri';
-import axios from 'axios';
+import type {albumType, artistInfoType, playlistInfo, trackType} from '../types';
 import * as spotify from './spotify';
 import * as tidal from './tidal';
 import * as youtube from './youtube';
-import PQueue from 'p-queue';
-import type {albumType, artistInfoType, playlistInfo, trackType} from '../types';
 
-type linkType = 'track' | 'album' | 'artist' | 'playlist';
+type linkType = 'track' | 'album' | 'artist' | 'playlist' | 'episode' | 'show' | 'search' | 'user' | 'local';
 
 export type urlPartsType = {
   id: string;
@@ -29,6 +29,11 @@ export type urlPartsType = {
     | 'spotify-album'
     | 'spotify-playlist'
     | 'spotify-artist'
+    | 'spotify-episode'
+    | 'spotify-show'
+    | 'spotify-search'
+    | 'spotify-user'
+    | 'spotify-local'
     | 'tidal-track'
     | 'tidal-album'
     | 'tidal-playlist'
@@ -157,6 +162,32 @@ export const parseInfo = async (url: string) => {
       tracks = await spotify.artist2Deezer(info.id);
       linktype = 'artist';
       break;
+
+    case 'spotify-episode':
+      tracks.push(await spotify.episode2deezer(info.id));
+      linktype = 'episode';
+      break;
+
+    case 'spotify-show':
+      tracks.push(await spotify.show2deezer(info.id));
+      linktype = 'show';
+      break;
+
+    case 'spotify-search':
+      tracks.push(await spotify.search2deezer(info.id));
+      linktype = 'search';
+      break;
+
+    case 'spotify-user':
+      const [playlistInfo, trackList] = await spotify.user2deezer(info.id);
+      tracks.push(...trackList);
+      linktype = 'user';
+      break;
+
+    // case 'spotify-local':
+    //   tracks.push(await spotify.local2deezer(info.id));
+    //   linktype = 'local';
+    //   break;
 
     case 'tidal-track':
       tracks.push(await tidal.track2deezer(info.id));
