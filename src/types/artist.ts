@@ -13,7 +13,7 @@ export interface artistType {
   ART_PICTURE: string; // 'f2bc007e9133c946ac3c3907ddc5d2ea'
   RANK: string; // '836071'
   LOCALES?: localesType;
-  __TYPE__: 'artist';
+  __TYPE__: "artist";
 }
 
 export interface artistInfoTypeMinimal {
@@ -23,7 +23,7 @@ export interface artistInfoTypeMinimal {
   NB_FAN: number;
   LOCALES: [];
   ARTIST_IS_DUMMY: boolean;
-  __TYPE__: 'artist';
+  __TYPE__: "artist";
 }
 
 export interface artistInfoType {
@@ -34,5 +34,5 @@ export interface artistInfoType {
   FACEBOOK?: string; // "https://www.facebook.com/avicii?fref=ts",
   NB_FAN: number; // 7140516,
   TWITTER?: string; // "https://twitter.com/Avicii",
-  __TYPE__: 'artist';
+  __TYPE__: "artist";
 }

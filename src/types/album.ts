@@ -1,5 +1,5 @@
-import type {artistType} from './artist';
-import type {trackType, contributorsPublicApi} from './tracks';
+import type { artistType } from "./artist";
+import type { contributorsPublicApi, trackType } from "./tracks";
 
 export interface albumTypeMinimal {
   ALB_ID: string;
@@ -18,7 +18,7 @@ export interface albumTypeMinimal {
   TYPE: string; // '0'
   ARTIST_IS_DUMMY: boolean;
   NUMBER_TRACK: number; // '1';
-  __TYPE__: 'album';
+  __TYPE__: "album";
 }
 
 export interface albumType {
@@ -49,7 +49,7 @@ export interface albumType {
   STATUS: string; // '1'
   TYPE: string; // '1'
   UPC: string; // '602547151544'
-  __TYPE__: 'album';
+  __TYPE__: "album";
 }
 
 export interface albumTracksType {
@@ -67,7 +67,7 @@ interface trackDataPublicApi {
   title: string; // 'Harder, Better, Faster, Stronger'
   title_short: string; // 'Harder, Better, Faster, Stronger'
   title_version?: string; // ''
-  link: 'https://www.deezer.com/track/3135556';
+  link: "https://www.deezer.com/track/3135556";
   duration: number; // 224
   rank: number; // 956167
   explicit_lyrics: boolean;
@@ -79,21 +79,21 @@ interface trackDataPublicApi {
     id: number; // 27
     name: number; // 'Daft Punk'
     tracklist: string; // 'https://api.deezer.com/artist/27/top?limit=50'
-    type: 'artist';
+    type: "artist";
   };
-  type: 'track';
+  type: "track";
 }
 
 interface genreTypePublicApi {
   id: number; // 113
   name: string; // 'Dance'
   picture: string; // 'https://api.deezer.com/genre/113/image'
-  type: 'genre';
+  type: "genre";
 }
 
 export interface albumTypePublicApi {
   id: number; // 302127'
-  title: 'Discovery';
+  title: "Discovery";
   upc: string; // '724384960650'
   link: string; // 'https://www.deezer.com/album/302127'
   share: string; // 'https://www.deezer.com/album/302127?utm_source=deezer&utm_content=album-302127&utm_term=0_1614940071&utm_medium=web'
@@ -121,7 +121,7 @@ export interface albumTypePublicApi {
   explicit_content_cover: number; // 0
   contributors: contributorsPublicApi[];
   artist: contributorsPublicApi;
-  type: 'album';
+  type: "album";
   tracks: {
     data: trackDataPublicApi[];
   };

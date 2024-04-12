@@ -13,7 +13,7 @@ interface dataType {
   slug: string; // 'asian';
   background_color: string; // '#3ABEA7';
   pictures: picturesType[];
-  __TYPE__: 'channel';
+  __TYPE__: "channel";
 }
 
 interface channelDataType {

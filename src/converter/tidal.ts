@@ -1,7 +1,7 @@
-import axios from 'axios';
-import PQueue from 'p-queue';
-import {isrc2deezer, upc2deezer} from './deezer';
-import type {playlistInfo, trackType} from '../types';
+import axios from "axios";
+import PQueue from "p-queue";
+import { isrc2deezer, upc2deezer } from "./deezer";
+import type { playlistInfo, trackType } from "../types";
 
 interface commonType {
   id: number;
@@ -80,16 +80,16 @@ interface tidalPlaylistTracksType extends listType {
 }
 
 const client = axios.create({
-  baseURL: 'https://api.tidal.com/v1/',
+  baseURL: "https://api.tidal.com/v1/",
   timeout: 15000,
   headers: {
-    'user-agent': 'TIDAL/3704 CFNetwork/1220.1 Darwin/20.3.0',
-    'x-tidal-token': 'i4ZDjcyhed7Mu47q',
+    "user-agent": "TIDAL/3704 CFNetwork/1220.1 Darwin/20.3.0",
+    "x-tidal-token": "i4ZDjcyhed7Mu47q",
   },
-  params: {limit: 500, countryCode: 'US'},
+  params: { limit: 500, countryCode: "US" },
 });
 
-const queue = new PQueue({concurrency: 25});
+const queue = new PQueue({ concurrency: 25 });
 
 /**
  * Get a track by its id
@@ -97,7 +97,7 @@ const queue = new PQueue({concurrency: 25});
  * @example tidal.getTrack('64975224')
  */
 export const getTrack = async (id: string): Promise<tidalTrackType> => {
-  const {data} = await client.get<tidalTrackType>(`tracks/${id}`);
+  const { data } = await client.get<tidalTrackType>(`tracks/${id}`);
   return data;
 };
 
@@ -116,7 +116,7 @@ export const track2deezer = async (id: string) => {
  * @example tidal.getAlbum('80216363')
  */
 export const getAlbum = async (id: string): Promise<tidalAlbumType> => {
-  const {data} = await client.get<tidalAlbumType>(`albums/${id}`);
+  const { data } = await client.get<tidalAlbumType>(`albums/${id}`);
   return data;
 };
 
@@ -134,8 +134,12 @@ export const album2deezer = async (id: string) => {
  * @param {string} id - album id
  * @example tidal.getAlbumTracks('80216363')
  */
-export const getAlbumTracks = async (id: string): Promise<tidalAlbumsTracksType> => {
-  const {data} = await client.get<tidalAlbumsTracksType>(`albums/${id}/tracks`);
+export const getAlbumTracks = async (
+  id: string,
+): Promise<tidalAlbumsTracksType> => {
+  const { data } = await client.get<tidalAlbumsTracksType>(
+    `albums/${id}/tracks`,
+  );
   return data;
 };
 
@@ -144,9 +148,15 @@ export const getAlbumTracks = async (id: string): Promise<tidalAlbumsTracksType>
  * @param {string} id - artist id
  * @example tidal.getArtistAlbums('3575680')
  */
-export const getArtistAlbums = async (id: string): Promise<tidalAlbumsTracksType> => {
-  const {data} = await client.get<tidalAlbumsTracksType>(`artists/${id}/albums`);
-  data.items = data.items.filter((item: any) => item.artist.id.toString() === id);
+export const getArtistAlbums = async (
+  id: string,
+): Promise<tidalAlbumsTracksType> => {
+  const { data } = await client.get<tidalAlbumsTracksType>(
+    `artists/${id}/albums`,
+  );
+  data.items = data.items.filter((item: any) =>
+    item.artist.id.toString() === id
+  );
   return data;
 };
 
@@ -155,9 +165,15 @@ export const getArtistAlbums = async (id: string): Promise<tidalAlbumsTracksType
  * @param {string} id - artist id
  * @example tidal.getArtistTopTracks('3575680')
  */
-export const getArtistTopTracks = async (id: string): Promise<tidalArtistTopTracksType> => {
-  const {data} = await client.get<tidalArtistTopTracksType>(`artists/${id}/toptracks`);
-  data.items = data.items.filter((item: any) => item.artist.id.toString() === id);
+export const getArtistTopTracks = async (
+  id: string,
+): Promise<tidalArtistTopTracksType> => {
+  const { data } = await client.get<tidalArtistTopTracksType>(
+    `artists/${id}/toptracks`,
+  );
+  data.items = data.items.filter((item: any) =>
+    item.artist.id.toString() === id
+  );
   return data;
 };
 
@@ -167,7 +183,7 @@ export const getArtistTopTracks = async (id: string): Promise<tidalArtistTopTrac
  * @example tidal.getPlaylist('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
  */
 export const getPlaylist = async (uuid: string): Promise<tidalPlaylistType> => {
-  const {data} = await client.get<tidalPlaylistType>(`playlists/${uuid}`);
+  const { data } = await client.get<tidalPlaylistType>(`playlists/${uuid}`);
   return data;
 };
 
@@ -176,8 +192,12 @@ export const getPlaylist = async (uuid: string): Promise<tidalPlaylistType> => {
  * @param {string} uuid - playlist uuid
  * @example tidal.getPlaylistTracks('1c5d01ed-4f05-40c4-bd28-0f73099e9648')
  */
-export const getPlaylistTracks = async (uuid: string): Promise<tidalPlaylistTracksType> => {
-  const {data} = await client.get<tidalPlaylistTracksType>(`playlists/${uuid}/tracks`);
+export const getPlaylistTracks = async (
+  uuid: string,
+): Promise<tidalPlaylistTracksType> => {
+  const { data } = await client.get<tidalPlaylistTracksType>(
+    `playlists/${uuid}/tracks`,
+  );
   return data;
 };
 
@@ -188,7 +208,9 @@ export const getPlaylistTracks = async (uuid: string): Promise<tidalPlaylistTrac
  * @returns {Object}
  */
 export const albumArtToUrl = (uuid: string) => {
-  const baseUrl = `https://resources.tidal.com/images/${uuid.replace(/-/g, '/')}`;
+  const baseUrl = `https://resources.tidal.com/images/${
+    uuid.replace(/-/g, "/")
+  }`;
   return {
     sm: `${baseUrl}/160x160.jpg`,
     md: `${baseUrl}/320x320.jpg`,
@@ -206,7 +228,7 @@ export const artist2Deezer = async (
   id: string,
   onError?: (item: tidalTrackType, index: number, err: Error) => void,
 ): Promise<trackType[]> => {
-  const {items} = await getArtistTopTracks(id);
+  const { items } = await getArtistTopTracks(id);
   const tracks: trackType[] = [];
 
   await queue.addAll(
@@ -238,7 +260,7 @@ export const playlist2Deezer = async (
   onError?: (item: tidalTrackType, index: number, err: Error) => void,
 ): Promise<[playlistInfo, trackType[]]> => {
   const body = await getPlaylist(uuid);
-  const {items} = await getPlaylistTracks(uuid);
+  const { items } = await getPlaylistTracks(uuid);
   const tracks: trackType[] = [];
 
   await queue.addAll(
@@ -263,11 +285,11 @@ export const playlist2Deezer = async (
     PLAYLIST_ID: body.uuid,
     PARENT_USERNAME: userId,
     PARENT_USER_ID: userId,
-    PICTURE_TYPE: 'cover',
+    PICTURE_TYPE: "cover",
     PLAYLIST_PICTURE: body.image,
     TITLE: body.title,
-    TYPE: '0',
-    STATUS: '0',
+    TYPE: "0",
+    STATUS: "0",
     USER_ID: userId,
     DATE_ADD: body.created,
     DATE_MOD: body.lastUpdated,
@@ -278,7 +300,7 @@ export const playlist2Deezer = async (
     HAS_ARTIST_LINKED: false,
     IS_SPONSORED: false,
     IS_EDITO: false,
-    __TYPE__: 'playlist',
+    __TYPE__: "playlist",
   };
 
   return [playlistInfoData, tracks];

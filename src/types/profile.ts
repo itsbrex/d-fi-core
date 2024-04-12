@@ -1,4 +1,4 @@
-import type {albumTracksType} from './album';
+import type { albumTracksType } from "./album";
 
 export interface profileTypeMinimal {
   USER_ID: string;
@@ -7,7 +7,7 @@ export interface profileTypeMinimal {
   BLOG_NAME: string;
   USER_PICTURE?: string;
   IS_FOLLOW: boolean;
-  __TYPE__: 'user';
+  __TYPE__: "user";
 }
 
 export interface profileType {
@@ -26,6 +26,6 @@ export interface profileType {
     COUNTRY_NAME: string; // 'Bangladesh'
     PRIVATE: boolean;
     DISPLAY_NAME: string; // 'sayem314'
-    __TYPE__: 'user';
+    __TYPE__: "user";
   };
 }

@@ -26,7 +26,7 @@ export interface showEpisodeType {
   SHOW_IS_DOWNLOAD_ALLOWED: string; // '1';
   TRACK_TOKEN: string; // 'AAAAAWB_DVFggCaRuFmnQCdtCBDT4qsvXkmIXNGbdgtfOekQu4TZccv8ha9pAwV0moJnJArr8sTr2jocnFSBNE7WWaMU';
   TRACK_TOKEN_EXPIRE: string; // 1619011217;
-  __TYPE__: 'episode';
+  __TYPE__: "episode";
 }
 
 export interface showType {
@@ -50,7 +50,7 @@ export interface showType {
     NB_FAN: number; // 658;
     NB_RATE: number; // 0;
     RATING: string; // '0';
-    __TYPE__: 'show';
+    __TYPE__: "show";
   };
   FAVORITE_STATUS: boolean; // false;
   EPISODES: {

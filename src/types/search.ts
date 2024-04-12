@@ -1,11 +1,11 @@
-import type {albumType, albumTypeMinimal} from './album';
-import type {artistInfoTypeMinimal, artistType} from './artist';
-import type {playlistInfo, playlistInfoMinimal} from './playlist';
-import type {trackType} from './tracks';
-import type {profileTypeMinimal} from './profile';
-import type {channelSearchType} from './channel';
-import type {radioType} from './radio';
-import type {showEpisodeType} from './show';
+import type { albumType, albumTypeMinimal } from "./album";
+import type { artistInfoTypeMinimal, artistType } from "./artist";
+import type { playlistInfo, playlistInfoMinimal } from "./playlist";
+import type { trackType } from "./tracks";
+import type { profileTypeMinimal } from "./profile";
+import type { channelSearchType } from "./channel";
+import type { radioType } from "./radio";
+import type { showEpisodeType } from "./show";
 
 interface searchTypeCommon {
   count: number;
@@ -62,20 +62,22 @@ export interface searchType {
   QUERY: string; //;
   FUZZINNESS: boolean;
   AUTOCORRECT: boolean;
-  TOP_RESULT: [albumType | artistType | trackType | playlistInfo | artistType | unknown] | [];
+  TOP_RESULT: [
+    albumType | artistType | trackType | playlistInfo | artistType | unknown,
+  ] | [];
   ORDER: [
-    'TOP_RESULT',
-    'TRACK',
-    'PLAYLIST',
-    'ALBUM',
-    'ARTIST',
-    'LIVESTREAM',
-    'EPISODE',
-    'SHOW',
-    'CHANNEL',
-    'RADIO',
-    'USER',
-    'LYRICS',
+    "TOP_RESULT",
+    "TRACK",
+    "PLAYLIST",
+    "ALBUM",
+    "ARTIST",
+    "LIVESTREAM",
+    "EPISODE",
+    "SHOW",
+    "CHANNEL",
+    "RADIO",
+    "USER",
+    "LYRICS",
   ];
   ALBUM: albumSearchType;
   ARTIST: artistSearchType;

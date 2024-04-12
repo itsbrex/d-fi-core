@@ -18,18 +18,22 @@ const PICTURE = 6;
 
 const formatVorbisComment = (vendorString: string, commentList: []) => {
   const bufferArray = [];
-  const vendorStringBuffer = Buffer.from(vendorString, 'utf8');
+  const vendorStringBuffer = Buffer.from(vendorString, "utf8");
   const vendorLengthBuffer = Buffer.alloc(4);
   vendorLengthBuffer.writeUInt32LE(vendorStringBuffer.length);
 
   const userCommentListLengthBuffer = Buffer.alloc(4);
   userCommentListLengthBuffer.writeUInt32LE(commentList.length);
 
-  bufferArray.push(vendorLengthBuffer, vendorStringBuffer, userCommentListLengthBuffer);
+  bufferArray.push(
+    vendorLengthBuffer,
+    vendorStringBuffer,
+    userCommentListLengthBuffer,
+  );
 
   for (let i = 0; i < commentList.length; i++) {
     const comment = commentList[i];
-    const commentBuffer = Buffer.from(comment, 'utf8');
+    const commentBuffer = Buffer.from(comment, "utf8");
     const lengthBuffer = Buffer.alloc(4);
     lengthBuffer.writeUInt32LE(commentBuffer.length);
     bufferArray.push(lengthBuffer, commentBuffer);
@@ -54,12 +58,12 @@ class Metaflac {
 
   constructor(flac: Buffer) {
     this.buffer = flac;
-    this.marker = '';
+    this.marker = "";
     this.streamInfo = null;
     this.blocks = [];
     this.padding = null;
     this.vorbisComment = null;
-    this.vendorString = '';
+    this.vendorString = "";
     this.tags = [];
     this.pictures = [];
     this.picturesSpecs = [];
@@ -90,7 +94,10 @@ class Metaflac {
       }
 
       if ([APPLICATION, SEEKTABLE, CUESHEET].includes(blockType)) {
-        this.blocks.push([blockType, this.buffer.slice(offset, offset + blockLength)]);
+        this.blocks.push([
+          blockType,
+          this.buffer.slice(offset, offset + blockLength),
+        ]);
       }
       offset += blockLength;
     }
@@ -99,7 +106,9 @@ class Metaflac {
 
   parseVorbisComment() {
     const vendorLength = this.vorbisComment.readUInt32LE(0);
-    this.vendorString = this.vorbisComment.slice(4, vendorLength + 4).toString('utf8');
+    this.vendorString = this.vorbisComment.slice(4, vendorLength + 4).toString(
+      "utf8",
+    );
   }
 
   parsePictureBlock() {
@@ -109,11 +118,14 @@ class Metaflac {
       offset += 4;
       const mimeTypeLength = picture.readUInt32BE(offset);
       offset += 4;
-      const mime = picture.slice(offset, offset + mimeTypeLength).toString('ascii');
+      const mime = picture.slice(offset, offset + mimeTypeLength).toString(
+        "ascii",
+      );
       offset += mimeTypeLength;
       const descriptionLength = picture.readUInt32BE(offset);
       offset += 4;
-      const description = picture.slice(offset, (offset += descriptionLength)).toString('utf8');
+      const description = picture.slice(offset, offset += descriptionLength)
+        .toString("utf8");
       const width = picture.readUInt32BE(offset);
       offset += 4;
       const height = picture.readUInt32BE(offset);
@@ -124,7 +136,9 @@ class Metaflac {
       offset += 4;
       const pictureDataLength = picture.readUInt32BE(offset);
       offset += 4;
-      this.picturesDatas.push(picture.slice(offset, offset + pictureDataLength));
+      this.picturesDatas.push(
+        picture.slice(offset, offset + pictureDataLength),
+      );
       this.picturesSpecs.push(
         this.buildSpecification({
           type,
@@ -147,7 +161,7 @@ class Metaflac {
    * Get the MD5 signature from the STREAMINFO block.
    */
   getMd5sum() {
-    return this.streamInfo.slice(18, 34).toString('hex');
+    return this.streamInfo.slice(18, 34).toString("hex");
   }
 
   /**
@@ -223,10 +237,10 @@ class Metaflac {
   getTag(name: string) {
     return this.tags
       .filter((item: string) => {
-        const itemName = item.split('=')[0];
+        const itemName = item.split("=")[0];
         return itemName === name;
       })
-      .join('\n');
+      .join("\n");
   }
 
   /**
@@ -236,7 +250,7 @@ class Metaflac {
    */
   removeTag(name: string) {
     this.tags = this.tags.filter((item: string) => {
-      const itemName = item.split('=')[0];
+      const itemName = item.split("=")[0];
       return itemName !== name;
     });
   }
@@ -248,7 +262,7 @@ class Metaflac {
    */
   removeFirstTag(name: string) {
     const found = this.tags.findIndex((item: string) => {
-      return item.split('=')[0] === name;
+      return item.split("=")[0] === name;
     });
     if (found !== -1) {
       this.tags.splice(found, 1);
@@ -269,8 +283,10 @@ class Metaflac {
    * @param {string} field
    */
   setTag(field: string) {
-    if (field.indexOf('=') === -1) {
-      throw new Error(`malformed vorbis comment field "${field}", field contains no '=' character`);
+    if (field.indexOf("=") === -1) {
+      throw new Error(
+        `malformed vorbis comment field "${field}", field contains no '=' character`,
+      );
     }
     this.tags.push(field);
   }
@@ -280,7 +296,11 @@ class Metaflac {
    *
    * @param {string} filename
    */
-  importPicture(picture: Buffer, dimension: number, mime: 'image/jpeg' | 'image/png') {
+  importPicture(
+    picture: Buffer,
+    dimension: number,
+    mime: "image/jpeg" | "image/png",
+  ) {
     const spec = this.buildSpecification({
       mime,
       width: dimension,
@@ -301,8 +321,8 @@ class Metaflac {
   buildSpecification(spec = {}) {
     const defaults = {
       type: 3,
-      mime: 'image/jpeg',
-      description: '',
+      mime: "image/jpeg",
+      description: "",
       width: 0,
       height: 0,
       depth: 24,
@@ -321,9 +341,9 @@ class Metaflac {
   buildPictureBlock(picture: Buffer, specification: any = {}) {
     const pictureType = Buffer.alloc(4);
     const mimeLength = Buffer.alloc(4);
-    const mime = Buffer.from(specification.mime, 'ascii');
+    const mime = Buffer.from(specification.mime, "ascii");
     const descriptionLength = Buffer.alloc(4);
-    const description = Buffer.from(specification.description, 'utf8');
+    const description = Buffer.from(specification.description, "utf8");
     const width = Buffer.alloc(4);
     const height = Buffer.alloc(4);
     const depth = Buffer.alloc(4);
@@ -371,7 +391,12 @@ class Metaflac {
       // @ts-ignore
       bufferArray.push(this.buildMetadataBlock(...block));
     });
-    bufferArray.push(this.buildMetadataBlock(VORBIS_COMMENT, formatVorbisComment(this.vendorString, this.tags)));
+    bufferArray.push(
+      this.buildMetadataBlock(
+        VORBIS_COMMENT,
+        formatVorbisComment(this.vendorString, this.tags),
+      ),
+    );
     this.pictures.forEach((block: Buffer) => {
       bufferArray.push(this.buildMetadataBlock(PICTURE, block));
     });
@@ -384,7 +409,11 @@ class Metaflac {
 
   buildStream() {
     const metadata = this.buildMetadata();
-    return [this.buffer.slice(0, 4), ...metadata, this.buffer.slice(this.framesOffset)];
+    return [
+      this.buffer.slice(0, 4),
+      ...metadata,
+      this.buffer.slice(this.framesOffset),
+    ];
   }
 
   /**

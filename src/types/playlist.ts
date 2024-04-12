@@ -1,4 +1,4 @@
-import type {trackType} from './tracks';
+import type { trackType } from "./tracks";
 
 export interface playlistInfoMinimal {
   PLAYLIST_ID: string;
@@ -15,7 +15,7 @@ export interface playlistInfoMinimal {
   HAS_ARTIST_LINKED: boolean;
   DATE_ADD: string; // '2021-01-29 20:54:13'
   DATE_MOD: string; // '2021-02-01 05:52:40'
-  __TYPE__: 'playlist';
+  __TYPE__: "playlist";
 }
 
 export interface playlistInfo {
@@ -39,7 +39,7 @@ export interface playlistInfo {
   HAS_ARTIST_LINKED: boolean;
   IS_SPONSORED: boolean;
   IS_EDITO: boolean;
-  __TYPE__: 'playlist';
+  __TYPE__: "playlist";
 }
 
 export interface playlistTracksType {

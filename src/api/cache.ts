@@ -1,4 +1,4 @@
-import FastLRU from '../lib/fast-lru';
+import FastLRU from "../lib/fast-lru";
 
 // Expire cache in 60 minutes
 const lru = new FastLRU({

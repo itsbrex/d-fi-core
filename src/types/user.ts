@@ -12,5 +12,5 @@ export interface userType {
   COUNTRY: string;
   LANG: string;
   PHONE?: string;
-  __TYPE__: 'user';
+  __TYPE__: "user";
 }

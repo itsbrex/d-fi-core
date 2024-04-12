@@ -10,7 +10,7 @@ class FastLRU {
   _meta: {
     [key: string]: any;
   };
-  constructor({maxSize = Infinity, ttl = 0}) {
+  constructor({ maxSize = Infinity, ttl = 0 }) {
     // Default options
     this._max = maxSize;
     this._ttl = ttl;

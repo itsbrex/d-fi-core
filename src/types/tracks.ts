@@ -1,7 +1,7 @@
-import type {artistType} from './artist';
+import type { artistType } from "./artist";
 
 interface mediaType {
-  TYPE: 'preview';
+  TYPE: "preview";
   HREF: string; // 'https://cdns-preview-d.dzcdn.net/stream/c-deda7fa9316d9e9e880d2c6207e92260-8.mp3';
 }
 
@@ -46,16 +46,16 @@ interface songType {
   SNG_TITLE: string; // 'Harder, Better, Faster, Stronger'
   SNG_CONTRIBUTORS?:
     | {
-        main_artist: string[]; //['Daft Punk']
-        author?: string[]; // ['Edwin Birdsong', 'Guy-Manuel de Homem-Christo', 'Thomas Bangalter']
-        composer?: string[];
-        musicpublisher?: string[];
-        producer?: string[];
-        publisher: string[];
-        engineer?: string[];
-        writer?: string[];
-        mixer?: string[];
-      }
+      main_artist: string[]; //['Daft Punk']
+      author?: string[]; // ['Edwin Birdsong', 'Guy-Manuel de Homem-Christo', 'Thomas Bangalter']
+      composer?: string[];
+      musicpublisher?: string[];
+      producer?: string[];
+      publisher: string[];
+      engineer?: string[];
+      writer?: string[];
+      mixer?: string[];
+    }
     | [];
   STATUS: number; // 3
   S_MOD: number; // 0
@@ -64,15 +64,15 @@ interface songType {
   URL_REWRITING: string; // 'daft-punk'
   VERSION?: string; // '(Extended Club Mix Edit)'
   MD5_ORIGIN: string; // '51afcde9f56a132096c0496cc95eb24b'
-  FILESIZE_AAC_64: '0';
+  FILESIZE_AAC_64: "0";
   FILESIZE_MP3_64: string; // '1798059'
   FILESIZE_MP3_128: string; // '3596119'
-  FILESIZE_MP3_256: '0';
-  FILESIZE_MP3_320: '0';
-  FILESIZE_MP4_RA1: '0';
-  FILESIZE_MP4_RA2: '0';
-  FILESIZE_MP4_RA3: '0';
-  FILESIZE_FLAC: '0';
+  FILESIZE_MP3_256: "0";
+  FILESIZE_MP3_320: "0";
+  FILESIZE_MP4_RA1: "0";
+  FILESIZE_MP4_RA2: "0";
+  FILESIZE_MP4_RA3: "0";
+  FILESIZE_FLAC: "0";
   FILESIZE: string; //'3596119'
   GAIN: string; // '-12.4'
   MEDIA_VERSION: string; // '8'
@@ -86,7 +86,7 @@ interface songType {
     STREAM_SUB?: string; // '2000-01-01'
   };
   PROVIDER_ID: string; // '3'
-  __TYPE__: 'song';
+  __TYPE__: "song";
 }
 
 export interface trackType extends songType {
@@ -146,7 +146,7 @@ export interface trackTypePublicApi {
     md5_image: string; // '2e018122cb56986277102d2041a592c8'
     release_date: string; // '2001-03-07';
     tracklist: string; // 'https://api.deezer.com/album/302127/tracks'
-    type: 'album';
+    type: "album";
   };
-  type: 'track';
+  type: "track";
 }
