@@ -17,7 +17,6 @@
   "author": "Sayem Chowdhury",
   "license": "MIT",
   "dependencies": {
-    "@types/bun": "^1.0.12",
     "@types/p-queue": "^3.2.1",
     "axios": "^1.5.1",
     "browser-id3-writer": "^6.0.0",
