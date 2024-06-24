@@ -1,4 +1,4 @@
-## Spotify to Deezer
+# Spotify to Deezer
 
 `d-fi-core` exports Spotify api to easily convert tracks, albums, artists and playlist to deezer via matching ISRC and UPC code.
 
@@ -7,7 +7,7 @@
 Here's a simple example. All method returns `Object` or throws `Error`. Make sure to catch error on your side.
 
 ```ts
-import {spotify} from 'd-fi-core';
+import { spotify } from 'd-fi-core';
 
 // Set token first to bypass some limits
 await spotify.setSpotifyAnonymousToken();

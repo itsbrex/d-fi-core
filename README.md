@@ -1,11 +1,11 @@
-## d-fi-core [![Test](https://github.com/d-fi/d-fi-core/workflows/Test/badge.svg)](https://github.com/d-fi/d-fi-core/actions)
+# d-fi-core [![Test](https://github.com/d-fi/d-fi-core/workflows/Test/badge.svg)](https://github.com/d-fi/d-fi-core/actions)
 
 d-fi is a streaming music downloader. This core module is designed to be used on
 future version of d-fi.
 
 ## Installation
 
-```bash
+```sh
 bun add d-fi-core
 ```
 
@@ -15,7 +15,7 @@ Here's a simple example to download tracks.
 
 ```ts
 import axios from 'axios';
-import fs from 'fs';
+import { writeFile } from 'fs/promises';
 import * as api from 'd-fi-core';
 
 // Init api with arl from cookie
@@ -38,7 +38,7 @@ const track = await api.getTrackInfo(song_id);
 const trackData = await api.getTrackDownloadUrl(track, 9); // 1 = 128kbps, 3 = 320kbps, 9 = flac
 
 // Download track
-const { data } = await axios.get(trackdata.trackUrl, {
+const { data } = await axios.get(trackData.trackUrl, {
   responseType: 'arraybuffer',
 });
 
@@ -51,7 +51,7 @@ const outFile = trackData.isEncrypted
 const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
 
 // Save file to disk
-fs.writeFileSync(track.SNG_TITLE + '.flac', trackWithMetadata);
+await writeFile(track.SNG_TITLE + '.flac', trackWithMetadata);
 ```
 
 ### [Read FAQ](https://github.com/d-fi/d-fi-core/blob/master/docs/faq.md)
