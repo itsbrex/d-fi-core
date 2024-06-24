@@ -114,3 +114,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.env.development
+.env.local
+.env.production
+.history
+.DS_Store
+.env.development.local
+dl-d-fi.code-workspace
+graphql
+moises-gql.js
