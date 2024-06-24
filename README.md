@@ -1,11 +1,12 @@
 ## d-fi-core [![Test](https://github.com/d-fi/d-fi-core/workflows/Test/badge.svg)](https://github.com/d-fi/d-fi-core/actions)
 
-d-fi is a streaming music downloader. This core module is designed to be used on future version of d-fi.
+d-fi is a streaming music downloader. This core module is designed to be used on
+future version of d-fi.
 
 ## Installation
 
 ```bash
-$ yarn add d-fi-core
+bun add d-fi-core
 ```
 
 ## Usage
@@ -33,31 +34,37 @@ try {
 // GET Track Object
 const track = await api.getTrackInfo(song_id);
 
-// Parse download URL for 128kbps
-const trackData = await api.getTrackDownloadUrl(track, 1);
+// Parse download URL for FLAC quality
+const trackData = await api.getTrackDownloadUrl(track, 9); // 1 = 128kbps, 3 = 320kbps, 9 = flac
 
 // Download track
-const {data} = await axios.get(trackdata.trackUrl, {responseType: 'arraybuffer'});
+const { data } = await axios.get(trackdata.trackUrl, {
+  responseType: 'arraybuffer',
+});
 
 // Decrypt track if needed
-const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
+const outFile = trackData.isEncrypted
+  ? api.decryptDownload(data, track.SNG_ID)
+  : data;
 
 // Add id3 metadata
 const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
 
 // Save file to disk
-fs.writeFileSync(track.SNG_TITLE + '.mp3', trackWithMetadata);
+fs.writeFileSync(track.SNG_TITLE + '.flac', trackWithMetadata);
 ```
 
 ### [Read FAQ](https://github.com/d-fi/d-fi-core/blob/master/docs/faq.md)
 
 ## Methods
 
-All method returns `Object` or throws `Error`. Make sure to catch error on your side.
+All method returns `Object` or throws `Error`. Make sure to catch error on your
+side.
 
 ### `.initDeezerApi(arl_cookie);`
 
-> It is recommended that you first init the app with this method using your arl cookie.
+> It is recommended that you first init the app with this method using your arl
+> cookie.
 
 | Parameters   | Required |     Type |
 | ------------ | :------: | -------: |
@@ -157,6 +164,8 @@ All method returns `Object` or throws `Error`. Make sure to catch error on your 
 
 ### Donations
 
-If you want to show your appreciation, you can donate me on [ko-fi](https://ko-fi.com/Z8Z5KDA6) or [buy me a coffee](https://www.buymeacoffee.com/sayem). Thanks!
+If you want to show your appreciation, you can donate me on
+[ko-fi](https://ko-fi.com/Z8Z5KDA6) or
+[buy me a coffee](https://www.buymeacoffee.com/sayem). Thanks!
 
 > Made with :heart: & :coffee: by Sayem
