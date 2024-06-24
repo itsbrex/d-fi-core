@@ -1,7 +1,7 @@
 /**
  * Fast LRU & TTL cache
- * @param  {Integer} options.max		- Max entries in the cache. @default Infinity
- * @param  {Integer} options.ttl		- Timeout before removing entries. @default Infinity
+ * @param  {Integer} options.max        - Max entries in the cache. @default Infinity
+ * @param  {Integer} options.ttl        - Timeout before removing entries. @default Infinity
  */
 class FastLRU {
   _max: number;
